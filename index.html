@@ -4,27 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Verificar Nome na Planilha</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      text-align: center;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-    }
-    #resultado {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Verificar Nome na Planilha</h1>
-  <input type="text" id="nome" placeholder="Digite o nome" />
-  <button onclick="verificarNome()">Verificar</button>
-  <div id="resultado"></div>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+      <div class="card-body text-center">
+        <h2 class="card-title mb-4">Verificação de Nome</h2>
+        <input type="text" id="nome" class="form-control mb-3" placeholder="Digite o nome" />
+        <button class="btn btn-primary w-100" onclick="verificarNome()">Verificar</button>
+        <div id="resultado" class="mt-4 fw-bold"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
