@@ -13,7 +13,7 @@
       <div class="card-body text-center">
         <h2 class="card-title mb-4">Verificação de Dados</h2>
         <input type="text" id="nome" class="form-control mb-3" placeholder="Digite o nome completo" />
-        <input type="text" id="cpf" class="form-control mb-3" placeholder="Digite o CPF" />
+        <input type="text" id="cpf" class="form-control mb-3" placeholder="Digite o CPF (com ou sem pontos)" />
         <button class="btn btn-primary w-100" onclick="verificarDados()">Verificar</button>
         <div id="resultado" class="mt-4 fw-bold"></div>
       </div>
@@ -21,9 +21,13 @@
   </div>
 
   <script>
+    function normalizarCPF(cpf) {
+      return cpf.replace(/\D/g, '');
+    }
+
     async function verificarDados() {
       const nome = document.getElementById('nome').value.trim().toLowerCase();
-      const cpf = document.getElementById('cpf').value.trim().replace(/\D/g, ''); // remove caracteres não numéricos
+      const cpf = normalizarCPF(document.getElementById('cpf').value);
       const resultado = document.getElementById('resultado');
 
       if (!nome || !cpf) {
@@ -44,7 +48,7 @@
         const linhas = data.values || [];
         const encontrado = linhas.some(([colNome, colCpf]) =>
           colNome?.toLowerCase().trim() === nome &&
-          colCpf?.replace(/\D/g, '') === cpf
+          normalizarCPF(colCpf || '') === cpf
         );
 
         if (encontrado) {
