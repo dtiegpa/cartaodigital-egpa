@@ -53,4 +53,22 @@
 
         if (linhaEncontrada) {
           const nomeCompleto = linhaEncontrada[0] || '';
-          const email = linhaEncontrada[1] || 'N/A
+          const email = linhaEncontrada[1] || 'N/A';
+          const telefone = linhaEncontrada[2] || 'N/A';
+          const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+          localStorage.setItem('cartaoDados', JSON.stringify({ nomeCompleto, email, telefone, cpf: cpfFormatado }));
+          window.location.href = 'cartao.html';
+        } else {
+          resultado.textContent = '❌ Dados não encontrados!';
+          resultado.className = 'mt-4 fw-bold text-danger';
+        }
+      } catch (error) {
+        console.error('Erro ao acessar a planilha:', error);
+        resultado.textContent = 'Erro ao acessar a planilha.';
+        resultado.className = 'mt-4 fw-bold text-danger';
+      }
+    }
+  </script>
+</body>
+</html>
