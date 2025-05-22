@@ -48,14 +48,14 @@
         const linhas = data.values || [];
         const linhaEncontrada = linhas.find(celulas =>
           (celulas[0]?.toLowerCase().trim() === nome) &&
-          (normalizarCPF(celulas[5] || '') === cpf)
+          (normalizarCPF(celulas[4] || '') === cpf)
         );
 
         if (linhaEncontrada) {
           const nomeCompleto = linhaEncontrada[0] || '';
           const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-          const secretaria = linhaEncontrada[7] || 'N/A'; // Coluna H
-          const matricula = linhaEncontrada[8] || 'N/A';  // Coluna I
+          const secretaria = linhaEncontrada[6] || 'N/A'; // Coluna H
+          const matricula = linhaEncontrada[7] || 'N/A';  // Coluna I
 
           localStorage.setItem('cartaoDados', JSON.stringify({
             nomeCompleto,
