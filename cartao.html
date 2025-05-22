@@ -9,15 +9,15 @@
 <body class="bg-light">
 
   <div class="container mt-5">
-    <div class="card mx-auto shadow" style="max-width: 500px;">
+    <div class="card mx-auto shadow" style="max-width: 600px;">
       <div class="card-header bg-primary text-white text-center">
         Cartão Digital
       </div>
       <div class="card-body" id="cartao-body">
         <p><strong>Nome:</strong> <span id="nome"></span></p>
-        <p><strong>Email:</strong> <span id="email"></span></p>
-        <p><strong>Telefone:</strong> <span id="telefone"></span></p>
         <p><strong>CPF:</strong> <span id="cpf"></span></p>
+        <p><strong>Secretaria/Setor de Lotação:</strong> <span id="secretaria"></span></p>
+        <p><strong>Número de Matrícula:</strong> <span id="matricula"></span></p>
       </div>
     </div>
   </div>
@@ -29,9 +29,9 @@
       document.getElementById('cartao-body').innerHTML = '<p class="text-danger">Nenhum dado encontrado.</p>';
     } else {
       document.getElementById('nome').textContent = dados.nomeCompleto;
-      document.getElementById('email').textContent = dados.email;
-      document.getElementById('telefone').textContent = dados.telefone;
       document.getElementById('cpf').textContent = dados.cpf;
+      document.getElementById('secretaria').textContent = dados.secretaria;
+      document.getElementById('matricula').textContent = dados.matricula;
     }
   </script>
 </body>
