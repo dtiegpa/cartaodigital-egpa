@@ -53,7 +53,7 @@
 
         if (linhaEncontrada) {
           const nomeCompleto = linhaEncontrada[1] || '';
-          const cpfFormatado = cpf.replace(/(\\d{3})(\\d{3})(\\d{3})(\\d{2})/, '$1.$2.$3-$4');
+          const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
           const secretaria = linhaEncontrada[7] || 'N/A';
           const matricula = linhaEncontrada[8] || 'N/A';
 
