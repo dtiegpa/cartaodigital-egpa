@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cartão Digital</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="card mx-auto shadow" style="max-width: 500px;">
+      <div class="card-header bg-primary text-white text-center">
+        Cartão Digital
+      </div>
+      <div class="card-body" id="cartao-body">
+        <p><strong>Nome:</strong> <span id="nome"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Telefone:</strong> <span id="telefone"></span></p>
+        <p><strong>CPF:</strong> <span id="cpf"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dados = JSON.parse(localStorage.getItem('cartaoDados'));
+
+    if (!dados) {
+      document.getElementById('cartao-body').innerHTML = '<p class="text-danger">Nenhum dado encontrado.</p>';
+    } else {
+      document.getElementById('nome').textContent = dados.nomeCompleto;
+      document.getElementById('email').textContent = dados.email;
+      document.getElementById('telefone').textContent = dados.telefone;
+      document.getElementById('cpf').textContent = dados.cpf;
+    }
+  </script>
+</body>
+</html>
