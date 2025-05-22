@@ -38,7 +38,7 @@
 
       const sheetId = '1ngw4lhQcnZI_kLxaClGrZ_Ebj5bz1YnMVC3w6sFaKbw';
       const apiKey = 'AIzaSyD3MJgzKLhSZ6gCkXICXlCZqexpkfL2pC4';
-      const range = 'Respostas do Formulário 1!B2:F';
+      const range = 'Respostas do Formulário 1!B2:I';
 
       try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
@@ -48,16 +48,21 @@
         const linhas = data.values || [];
         const linhaEncontrada = linhas.find(celulas =>
           (celulas[0]?.toLowerCase().trim() === nome) &&
-          (normalizarCPF(celulas[4] || '') === cpf)
+          (normalizarCPF(celulas[5] || '') === cpf)
         );
 
         if (linhaEncontrada) {
           const nomeCompleto = linhaEncontrada[0] || '';
-          const email = linhaEncontrada[1] || 'N/A';
-          const telefone = linhaEncontrada[2] || 'N/A';
           const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+          const secretaria = linhaEncontrada[7] || 'N/A'; // Coluna H
+          const matricula = linhaEncontrada[8] || 'N/A';  // Coluna I
 
-          localStorage.setItem('cartaoDados', JSON.stringify({ nomeCompleto, email, telefone, cpf: cpfFormatado }));
+          localStorage.setItem('cartaoDados', JSON.stringify({
+            nomeCompleto,
+            cpf: cpfFormatado,
+            secretaria,
+            matricula
+          }));
           window.location.href = 'cartao.html';
         } else {
           resultado.textContent = '❌ Dados não encontrados!';
