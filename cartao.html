@@ -31,25 +31,20 @@
       width: auto;
     }
 
-    .titulo {
-      font-size: 1.2rem;
-      text-align: center;
-      color: #2b2d42;
-      margin-bottom: 24px;
-      font-weight: 600;
-    }
-
     .linha-info {
-      font-size: 0.95rem;
-      color: #444;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       text-align: left;
     }
 
     .linha-info strong {
-      display: inline-block;
-      width: 110px;
+      font-weight: 600;
       color: #2b2d42;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .linha-info span {
+      color: #444;
     }
 
     .rodape {
@@ -74,13 +69,26 @@
       <img src="logo-topo.png" alt="Logo" />
     </div>
 
-    <div class="titulo">Cartão de Identificação</div>
-
-    <div class="linha-info"><strong>Nome:</strong> <span id="nome"></span></div>
-    <div class="linha-info"><strong>CPF:</strong> <span id="cpf"></span></div>
-    <div class="linha-info"><strong>Secretaria:</strong> <span id="secretaria"></span></div>
-    <div class="linha-info"><strong>Matrícula:</strong> <span id="matricula"></span></div>
-    <div class="linha-info"><strong>Validade:</strong> <span id="validade"></span></div>
+    <div class="linha-info">
+      <strong>Nome:</strong>
+      <span id="nome"></span>
+    </div>
+    <div class="linha-info">
+      <strong>CPF:</strong>
+      <span id="cpf"></span>
+    </div>
+    <div class="linha-info">
+      <strong>Secretaria:</strong>
+      <span id="secretaria"></span>
+    </div>
+    <div class="linha-info">
+      <strong>Matrícula:</strong>
+      <span id="matricula"></span>
+    </div>
+    <div class="linha-info">
+      <strong>Validade:</strong>
+      <span id="validade"></span>
+    </div>
 
     <div class="rodape">
       <img src="logo1.png" alt="Logo 1" />
