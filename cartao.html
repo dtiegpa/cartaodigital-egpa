@@ -5,20 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cartão Digital</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card-digital {
+      background: linear-gradient(135deg, #003366, #0055aa);
+      color: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .cartao-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .linha-info {
+      font-size: 1rem;
+      margin: 10px 0;
+    }
+    .logo {
+      text-align: right;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body class="bg-light">
 
-  <div class="container mt-5">
-    <div class="card mx-auto shadow" style="max-width: 600px;">
-      <div class="card-header bg-primary text-white text-center">
-        Cartão Digital
-      </div>
-      <div class="card-body" id="cartao-body">
-        <p><strong>Nome:</strong> <span id="nome"></span></p>
-        <p><strong>CPF:</strong> <span id="cpf"></span></p>
-        <p><strong>Secretaria/Setor de Lotação:</strong> <span id="secretaria"></span></p>
-        <p><strong>Número de Matrícula:</strong> <span id="matricula"></span></p>
-      </div>
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card-digital w-100" style="max-width: 500px;">
+      <div class="logo">SISTEMA</div>
+      <div class="cartao-header">Cartão de Identificação</div>
+      <div class="linha-info"><strong>Nome:</strong> <span id="nome"></span></div>
+      <div class="linha-info"><strong>CPF:</strong> <span id="cpf"></span></div>
+      <div class="linha-info"><strong>Secretaria/Setor:</strong> <span id="secretaria"></span></div>
+      <div class="linha-info"><strong>Matrícula:</strong> <span id="matricula"></span></div>
     </div>
   </div>
 
@@ -26,7 +47,7 @@
     const dados = JSON.parse(localStorage.getItem('cartaoDados'));
 
     if (!dados) {
-      document.getElementById('cartao-body').innerHTML = '<p class="text-danger">Nenhum dado encontrado.</p>';
+      document.querySelector('.card-digital').innerHTML = '<p class="text-danger">Nenhum dado encontrado.</p>';
     } else {
       document.getElementById('nome').textContent = dados.nomeCompleto;
       document.getElementById('cpf').textContent = dados.cpf;
