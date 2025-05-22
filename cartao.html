@@ -15,8 +15,7 @@
       max-width: 360px;
       margin: 50px auto;
       background-color: #ffffff;
-      border-left: 6px solid #EBB308;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       padding: 24px 28px;
@@ -24,7 +23,7 @@
 
     .logo-topo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .logo-topo img {
@@ -32,28 +31,33 @@
       width: auto;
     }
 
+    .titulo {
+      font-size: 1.2rem;
+      text-align: center;
+      color: #2b2d42;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
     .linha-info {
       font-size: 0.95rem;
-      color: #333;
+      color: #444;
       margin-bottom: 12px;
-      text-align: left;
-      border-left: 4px solid #3BB2E4;
-      padding-left: 12px;
     }
 
     .linha-info strong {
-      font-weight: 600;
-      color: #29ABE2;
       display: inline-block;
-      width: 120px;
+      width: 110px;
+      color: #2b2d42;
     }
 
     .rodape {
       display: flex;
-      justify-content: space-between;
-      margin-top: 24px;
-      padding-top: 16px;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
       border-top: 1px solid #eee;
+      padding-top: 20px;
     }
 
     .rodape img {
@@ -68,6 +72,8 @@
     <div class="logo-topo">
       <img src="logo-topo.png" alt="Logo" />
     </div>
+
+    <div class="titulo">Cartão de Identificação</div>
 
     <div class="linha-info"><strong>Nome:</strong> <span id="nome"></span></div>
     <div class="linha-info"><strong>CPF:</strong> <span id="cpf"></span></div>
