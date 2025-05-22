@@ -46,24 +46,11 @@
         const data = await response.json();
 
         const linhas = data.values || [];
-        const encontrado = linhas.some(celulas =>
+        const linhaEncontrada = linhas.find(celulas =>
           (celulas[0]?.toLowerCase().trim() === nome) &&
           (normalizarCPF(celulas[4] || '') === cpf)
         );
 
-        if (encontrado) {
-          resultado.textContent = '✅ Dados na planilha!';
-          resultado.className = 'mt-4 fw-bold text-success';
-        } else {
-          resultado.textContent = '❌ Dados não encontrados!';
-          resultado.className = 'mt-4 fw-bold text-danger';
-        }
-      } catch (error) {
-        console.error('Erro ao acessar a planilha:', error);
-        resultado.textContent = 'Erro ao acessar a planilha.';
-        resultado.className = 'mt-4 fw-bold text-danger';
-      }
-    }
-  </script>
-</body>
-</html>
+        if (linhaEncontrada) {
+          const nomeCompleto = linhaEncontrada[0] || '';
+          const email = linhaEncontrada[1] || 'N/A
