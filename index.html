@@ -38,7 +38,7 @@
 
       const sheetId = '1ngw4lhQcnZI_kLxaClGrZ_Ebj5bz1YnMVC3w6sFaKbw';
       const apiKey = 'AIzaSyD3MJgzKLhSZ6gCkXICXlCZqexpkfL2pC4';
-      const range = 'Respostas do Formulário 1!B2:I';
+      const range = 'Respostas do Formulário 1!A2:I';
 
       try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
@@ -47,22 +47,30 @@
 
         const linhas = data.values || [];
         const linhaEncontrada = linhas.find(celulas =>
-          (celulas[0]?.toLowerCase().trim() === nome) &&
-          (normalizarCPF(celulas[4] || '') === cpf)
+          (celulas[1]?.toLowerCase().trim() === nome) &&
+          (normalizarCPF(celulas[5] || '') === cpf)
         );
 
         if (linhaEncontrada) {
-          const nomeCompleto = linhaEncontrada[0] || '';
-          const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-          const secretaria = linhaEncontrada[6] || 'N/A'; // Coluna H
-          const matricula = linhaEncontrada[7] || 'N/A';  // Coluna I
+          const nomeCompleto = linhaEncontrada[1] || '';
+          const cpfFormatado = cpf.replace(/(\\d{3})(\\d{3})(\\d{3})(\\d{2})/, '$1.$2.$3-$4');
+          const secretaria = linhaEncontrada[7] || 'N/A';
+          const matricula = linhaEncontrada[8] || 'N/A';
+
+          const dataStr = linhaEncontrada[0];
+          const data = new Date(dataStr);
+          data.setFullYear(data.getFullYear() + 2);
+          const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+          const validade = `${meses[data.getMonth()]}/${data.getFullYear()}`;
 
           localStorage.setItem('cartaoDados', JSON.stringify({
             nomeCompleto,
             cpf: cpfFormatado,
             secretaria,
-            matricula
+            matricula,
+            validade
           }));
+
           window.location.href = 'cartao.html';
         } else {
           resultado.textContent = '❌ Dados não encontrados!';
