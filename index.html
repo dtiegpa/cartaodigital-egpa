@@ -38,7 +38,7 @@
 
       const sheetId = '1ngw4lhQcnZI_kLxaClGrZ_Ebj5bz1YnMVC3w6sFaKbw';
       const apiKey = 'AIzaSyD3MJgzKLhSZ6gCkXICXlCZqexpkfL2pC4';
-      const range = 'Respostas do Formulário 1!B2:C';
+      const range = 'Respostas do Formulário 1!B2:F';
 
       try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
@@ -46,9 +46,9 @@
         const data = await response.json();
 
         const linhas = data.values || [];
-        const encontrado = linhas.some(([colNome, colCpf]) =>
-          colNome?.toLowerCase().trim() === nome &&
-          normalizarCPF(colCpf || '') === cpf
+        const encontrado = linhas.some(celulas =>
+          (celulas[0]?.toLowerCase().trim() === nome) &&
+          (normalizarCPF(celulas[4] || '') === cpf)
         );
 
         if (encontrado) {
