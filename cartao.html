@@ -110,7 +110,7 @@
       document.getElementById('validade').textContent = dados.validade;
 
       const cpfNumeros = dados.cpf.replace(/\D/g, '');
-      const urlValidacao = `https://seudominio.com/validar.html?cpf=${cpfNumeros}`;
+      const urlValidacao = `https://dtiegpa.github.io/cartaodigital-egpa/validar.html?cpf=${cpfNumeros}`;
       new QRCode(document.getElementById("qrcode"), {
         text: urlValidacao,
         width: 100,
