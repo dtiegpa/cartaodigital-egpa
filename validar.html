@@ -19,6 +19,7 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      background-color: white;
     }
 
     .status {
@@ -34,13 +35,28 @@
     .inativo {
       color: red;
     }
+
+    .info-validado {
+      text-align: left;
+      margin-top: 24px;
+      color: #333;
+    }
+
+    .info-validado p {
+      margin-bottom: 8px;
+    }
+
+    .info-validado strong {
+      color: #2b2d42;
+    }
   </style>
 </head>
 <body>
 
-  <div class="card bg-white">
+  <div class="card">
     <h2>Validação de Cartão</h2>
     <div id="resultado" class="status mt-4"></div>
+    <div id="dados" class="info-validado d-none"></div>
   </div>
 
   <script>
@@ -53,9 +69,14 @@
       return cpf.replace(/\D/g, '');
     }
 
+    function formatarCPF(cpf) {
+      return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+
     async function validarCPF() {
       const cpf = normalizarCPF(getParam('cpf'));
       const resultado = document.getElementById('resultado');
+      const dados = document.getElementById('dados');
 
       if (!cpf) {
         resultado.textContent = 'CPF inválido ou ausente.';
@@ -73,13 +94,23 @@
         const data = await response.json();
 
         const linhas = data.values || [];
-        const encontrado = linhas.find(celulas =>
+        const linha = linhas.find(celulas =>
           normalizarCPF(celulas[5] || '') === cpf
         );
 
-        if (encontrado) {
+        if (linha) {
+          const nome = linha[1] || 'N/A';
+          const matricula = linha[8] || 'N/A';
+
           resultado.textContent = '✅ Servidor ativo.';
           resultado.className = 'status ativo';
+
+          dados.innerHTML = `
+            <p><strong>Nome:</strong> ${nome}</p>
+            <p><strong>CPF:</strong> ${formatarCPF(cpf)}</p>
+            <p><strong>Matrícula:</strong> ${matricula}</p>
+          `;
+          dados.classList.remove('d-none');
         } else {
           resultado.textContent = '❌ Servidor não encontrado.';
           resultado.className = 'status inativo';
