@@ -69,8 +69,8 @@
     }
 
     #qrcode {
-      margin-top: 24px;
-      text-align: center;
+      margin: 32px auto 0;
+      width: fit-content;
     }
   </style>
 </head>
@@ -113,8 +113,8 @@
       const urlValidacao = `https://dtiegpa.github.io/cartaodigital-egpa/validar.html?cpf=${cpfNumeros}`;
       new QRCode(document.getElementById("qrcode"), {
         text: urlValidacao,
-        width: 100,
-        height: 100
+        width: 150,
+        height: 150
       });
     }
   </script>
