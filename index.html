@@ -92,43 +92,55 @@
         return;
       }
 
-      const sheetId = '1ngw4lhQcnZI_kLxaClGrZ_Ebj5bz1YnMVC3w6sFaKbw';
       const apiKey = 'AIzaSyD3MJgzKLhSZ6gCkXICXlCZqexpkfL2pC4';
-      const range = 'Respostas do Formulário 1!A2:I';
-
-      try {
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const linhas = data.values || [];
-        const linhaEncontrada = linhas.find(celulas =>
-          normalizarCPF(celulas[5] || '') === cpf
-        );
-
-        if (linhaEncontrada) {
-          const nomeCompleto = linhaEncontrada[1] || '';
-          const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-          const secretaria = linhaEncontrada[7] || 'N/A';
-          const matricula = linhaEncontrada[8] || 'N/A';
-          const dataStr = linhaEncontrada[0];
-          const data = new Date(dataStr);
-          data.setFullYear(data.getFullYear() + 2);
-          const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-          const validade = `${meses[data.getMonth()]}/${data.getFullYear()}`;
-
-          localStorage.setItem('cartaoDados', JSON.stringify({
-            nomeCompleto, cpf: cpfFormatado, secretaria, matricula, validade
-          }));
-
-          window.location.href = 'cartao.html';
-        } else {
-          resultado.textContent = '❌ CPF não encontrado!';
-          resultado.className = 'mt-4 fw-bold text-danger';
+      const sheetConfigs = [
+        {
+          id: '1ngw4lhQcnZI_kLxaClGrZ_Ebj5bz1YnMVC3w6sFaKbw', // Primeira planilha
+          range: 'Respostas do Formulário 1!A2:I'
+        },
+        {
+          id: '1pUEnk1Ub6xuouSLqWj5dbL9D4hzDnar_Ll_K4U4NiQQ', // Segunda planilha
+          range: 'Respostas do Formulário 1!A2:I'
         }
-      } catch (error) {
-        console.error('Erro ao acessar a planilha:', error);
-        resultado.textContent = 'Erro ao acessar a planilha.';
+      ];
+
+      let linhaEncontrada = null;
+
+      for (const config of sheetConfigs) {
+        try {
+          const url = `https://sheets.googleapis.com/v4/spreadsheets/${config.id}/values/${encodeURIComponent(config.range)}?key=${apiKey}`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          const linhas = data.values || [];
+          linhaEncontrada = linhas.find(celulas =>
+            normalizarCPF(celulas[5] || '') === cpf
+          );
+
+          if (linhaEncontrada) break;
+        } catch (error) {
+          console.error(`Erro ao acessar a planilha (${config.id}):`, error);
+        }
+      }
+
+      if (linhaEncontrada) {
+        const nomeCompleto = linhaEncontrada[1] || '';
+        const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        const secretaria = linhaEncontrada[7] || 'N/A';
+        const matricula = linhaEncontrada[8] || 'N/A';
+        const dataStr = linhaEncontrada[0];
+        const data = new Date(dataStr);
+        data.setFullYear(data.getFullYear() + 2);
+        const meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+        const validade = `${meses[data.getMonth()]}/${data.getFullYear()}`;
+
+        localStorage.setItem('cartaoDados', JSON.stringify({
+          nomeCompleto, cpf: cpfFormatado, secretaria, matricula, validade
+        }));
+
+        window.location.href = 'cartao.html';
+      } else {
+        resultado.textContent = '❌ CPF não encontrado!';
         resultado.className = 'mt-4 fw-bold text-danger';
       }
     }
